@@ -1,15 +1,17 @@
 ## Q&A chatbot
 from langchain_openai import OpenAI
-from dotenv import load_dotenv
+from dotenv import load_dotenv, dotenv_values
 
-load_dotenv() # take environment variables from .env
+# Load environment variables and auto-reload on change
+load_dotenv()
+env_vars = dotenv_values()
 
 import streamlit as st
 import os
 
 # function to load openai model and get response
 def get_openai_response(question):
-    llm = OpenAI(openai_api_key=os.getenv("OPEN_API_KEY"),temperature=0.5)
+    llm = OpenAI(openai_api_key=env_vars["OPEN_API_KEY"],temperature=0.5)
     response = llm(question)
     return response
 
